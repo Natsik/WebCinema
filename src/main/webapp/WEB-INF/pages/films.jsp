@@ -28,7 +28,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th style="width:10em;">Name</th>
                         <th>Descirption</th>
                         <th>Duration</th>
                     </tr>
@@ -36,7 +36,7 @@
                     <tbody>
                     <c:forEach items="${filmsList}" var="film">
                         <tr>
-                            <td><a href="">${film.name}</a></td>
+                            <td style="width:10em;"><a href="">${film.name}</a></td>
                             <td>${film.description}</td>
                             <td class="convertToHHMM">${film.duration}</td>
                         </tr>
