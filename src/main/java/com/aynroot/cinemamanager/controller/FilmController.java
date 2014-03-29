@@ -1,12 +1,11 @@
 package com.aynroot.cinemamanager.controller;
 
-import com.aynroot.cinemamanager.dao.FilmDAO;
 import com.aynroot.cinemamanager.domain.Film;
 import com.aynroot.cinemamanager.forms.AddFilmForm;
 import com.aynroot.cinemamanager.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,18 +25,14 @@ public class FilmController {
         return "films";
     }
 
-    @ModelAttribute("add_film")
-    public AddFilmForm getAddFilmForm() {
-        return new AddFilmForm();
-    }
-
     @RequestMapping(value = "/films/add", method = RequestMethod.GET)
-    public String addFilmGET() {
+    public String addFilmGET(Model model) {
+        model.addAttribute("film", new AddFilmForm());
         return "add_film";
     }
 
     @RequestMapping(value = "/films/add", method = RequestMethod.POST)
-    public String addFilm(@ModelAttribute("add_film") AddFilmForm form) {
+    public String addFilm(@ModelAttribute("film") AddFilmForm form, Model model) {
 
         Film film = new Film();
 
@@ -46,6 +41,8 @@ public class FilmController {
         film.setDuration(form.getDurationSeconds());
 
         filmService.addFilm(film);
+        model.addAttribute("message", "Created film " + form.getName());
+        model.addAttribute("film", new AddFilmForm());
 
         return "add_film";
     }

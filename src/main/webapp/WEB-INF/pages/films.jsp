@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Films</title>
+    <title>Фильмы</title>
 
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,20 +23,21 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <h3>Фильмы</h3>
+            <br/>
             <c:if test="${!empty filmsList}">
-                <h3>Films</h3>
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th style="width:10em;">Name</th>
-                        <th>Descirption</th>
-                        <th>Duration</th>
+                        <th style="width:10em;">Название</th>
+                        <th>Описание</th>
+                        <th>Продолжительность</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${filmsList}" var="film">
                         <tr>
-                            <td style="width:10em;"><a href="">${film.name}</a></td>
+                            <td style="width:10em;"><a href="/films/${film.id}">${film.name}</a></td>
                             <td>${film.description}</td>
                             <td class="convertToHHMM">${film.duration}</td>
                         </tr>
