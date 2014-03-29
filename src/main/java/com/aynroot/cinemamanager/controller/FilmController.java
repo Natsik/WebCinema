@@ -41,7 +41,7 @@ public class FilmController {
         film.setDuration(form.getDurationSeconds());
 
         filmService.addFilm(film);
-        model.addAttribute("message", "Created film " + form.getName());
+        model.addAttribute("message", "Добавлен фильм <a href='/films/" + film.getId().toString() + "'>" + form.getName() + "</a>");
         model.addAttribute("film", new AddFilmForm());
 
         return "add_film";
