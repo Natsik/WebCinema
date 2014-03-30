@@ -23,6 +23,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
         <datasource-mapping>
+          <factory-entry name="cinemaPersistenceUnit" value="dataSource" />
           <factory-entry name="defaultPersistenceUnit" value="3f702ea4-fceb-4086-be00-7d699dd48945" />
           <factory-entry name="entityManagerFactory" />
         </datasource-mapping>

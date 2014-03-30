@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class FilmController {
 
@@ -45,11 +47,6 @@ public class FilmController {
         model.addAttribute("film", new AddFilmForm());
 
         return "add_film";
-    }
-
-    @RequestMapping("/")
-    public String home() {
-        return "redirect:/films";
     }
 
     @RequestMapping("/films/{id}")

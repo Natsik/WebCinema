@@ -14,7 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
+
     <script src="<c:url value="/resources/js/jquery-2.0.1.js" />"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="<c:url value="/resources/js/utils.js" />"></script>
 </head>
 
