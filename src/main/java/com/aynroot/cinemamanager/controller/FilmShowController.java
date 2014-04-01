@@ -47,8 +47,7 @@ public class FilmShowController {
 //        return "filmShows";
 //    }
 
-    @RequestMapping(value = "/filmshows/add", method = RequestMethod.GET)
-    public String addFilmShowGET(Model model) {
+    private void initModelAddFilmShow(Model model) {
         model.addAttribute("filmShow", new AddFilmShowForm());
 
         Map<String, String> filmsListMap = new LinkedHashMap<String, String>();
@@ -62,7 +61,12 @@ public class FilmShowController {
             hallsListMap.put(hall.getId().toString(), hall.getName());
         }
         model.addAttribute("hallsList", hallsListMap);
+    }
 
+    @RequestMapping(value = "/filmshows/add", method = RequestMethod.GET)
+    public String addFilmShowGET(Model model) {
+
+        initModelAddFilmShow(model);
         return "add_filmshow";
     }
 
@@ -81,7 +85,8 @@ public class FilmShowController {
         model.addAttribute("message", "Добавлен сеанс " + form.getHRStartTime() +
                 " на фильм <a href='/films/" + filmShow.getFilmId().toString() + "'>" +
                 filmService.getFilm(filmShow.getFilmId()).getName() + "</a>");
-        model.addAttribute("filmShow", new AddFilmShowForm());
+
+        initModelAddFilmShow(model);
 
         return "add_filmshow";
     }

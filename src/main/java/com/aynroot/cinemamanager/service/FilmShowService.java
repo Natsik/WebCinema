@@ -33,4 +33,9 @@ public class FilmShowService {
     public FilmShow getFilmShow(Long id) {
         return filmShowDAO.getFilmShow(id);
     }
+
+    @Transactional
+    public List<Object[]> listFilmShowsByFilmId(Long id) {
+        return filmShowDAO.listFilmShowsByFilmId(id);
+    }
 }

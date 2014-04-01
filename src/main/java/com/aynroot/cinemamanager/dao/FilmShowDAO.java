@@ -35,9 +35,18 @@ public class FilmShowDAO {
 //    }
 
     @SuppressWarnings("unchecked")
-    public List<FilmShow> listFilmShows(Long hallId) {
+    public List<FilmShow> listFilmShowsByHallId(Long hallId) {
         Query q = em.createQuery("SELECT filmShow FROM FilmShow filmShow WHERE filmShow.hallId = :hallId", FilmShow.class);
         q.setParameter("hallId", hallId);
+        return q.getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Object[]> listFilmShowsByFilmId(Long filmId) {
+        Query q = em.createQuery("SELECT filmShow.startTime, hall.name FROM FilmShow filmShow, Hall hall " +
+                "WHERE filmShow.filmId = :filmId AND filmShow.hallId = hall.id " +
+                "AND filmShow.startTime > current_timestamp() ORDER BY filmShow.startTime ASC");
+        q.setParameter("filmId", filmId);
         return q.getResultList();
     }
 

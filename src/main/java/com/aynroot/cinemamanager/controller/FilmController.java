@@ -3,6 +3,7 @@ package com.aynroot.cinemamanager.controller;
 import com.aynroot.cinemamanager.domain.Film;
 import com.aynroot.cinemamanager.forms.AddFilmForm;
 import com.aynroot.cinemamanager.service.FilmService;
+import com.aynroot.cinemamanager.service.FilmShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ public class FilmController {
 
     @Autowired
     private FilmService filmService;
+    @Autowired
+    private FilmShowService filmShowService;
 
     @RequestMapping("/films")
     public String listFilms(ModelMap model) {
@@ -51,8 +54,9 @@ public class FilmController {
 
     @RequestMapping("/films/{id}")
     public String showFilm(@PathVariable("id") Long id, ModelMap model) {
-        model.put("film", new Film());
-        model.put("requestedFilm", filmService.getFilm(id));
+        model.addAttribute("film", new Film());
+        model.addAttribute("requestedFilm", filmService.getFilm(id));
+        model.addAttribute("shows", filmShowService.listFilmShowsByFilmId(id));
         return "film";
     }
 }
