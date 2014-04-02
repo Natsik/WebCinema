@@ -1,25 +1,23 @@
 package com.aynroot.cinemamanager.controller;
 
-import com.aynroot.cinemamanager.domain.Film;
-import com.aynroot.cinemamanager.domain.FilmShow;
-import com.aynroot.cinemamanager.domain.Hall;
+import com.aynroot.cinemamanager.domain.*;
 import com.aynroot.cinemamanager.forms.AddFilmShowForm;
 import com.aynroot.cinemamanager.service.FilmService;
 import com.aynroot.cinemamanager.service.FilmShowService;
 import com.aynroot.cinemamanager.service.HallService;
+import com.aynroot.cinemamanager.service.TicketService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sun.util.logging.resources.logging;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class FilmShowController {
@@ -30,6 +28,8 @@ public class FilmShowController {
     private FilmService filmService;
     @Autowired
     private HallService hallService;
+    @Autowired
+    private TicketService ticketService;
 
     public static final Logger logger= Logger.getLogger(FilmShowService.class);
 
@@ -80,7 +80,9 @@ public class FilmShowController {
         logger.info(form.getStartTime());
         filmShow.setStartTime(form.getTimestampStartTime());
 
-        filmShowService.addFilmShow(filmShow);
+        Long filmShowId = filmShowService.addFilmShow(filmShow);
+        List<HallRow> rows = hallService.getRowsById(Long.parseLong(form.getHallId()));
+        ticketService.createTickets(filmShowId, rows, Float.parseFloat(form.getPrice()));
 
         model.addAttribute("message", "Добавлен сеанс " + form.getHRStartTime() +
                 " на фильм <a href='/films/" + filmShow.getFilmId().toString() + "'>" +
@@ -89,5 +91,22 @@ public class FilmShowController {
         initModelAddFilmShow(model);
 
         return "add_filmshow";
+    }
+
+    @RequestMapping("/filmshow/{id}")
+    public String showFilm(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("filmshow", new FilmShow());
+
+        FilmShow requestedFilmShow = filmShowService.getFilmShow(id);
+        List<Ticket> tickets = ticketService.listShowTickets(id);
+//        Row tickets.get(0).rowId;
+//        row.hallId
+
+        model.addAttribute("requestedFilmShow", requestedFilmShow);
+        model.addAttribute("requestedFilm", filmService.getFilm(requestedFilmShow.filmId));
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("price", tickets.get(0).price);
+//        model.addAttribute("hall", hallService.getHall(tickets.get(0).rowId))
+        return "filmshow";
     }
 }

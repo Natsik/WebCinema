@@ -15,8 +15,8 @@ public class FilmShowService {
     private FilmShowDAO filmShowDAO;
 
     @Transactional
-    public void addFilmShow(FilmShow filmShow) {
-        filmShowDAO.addFilmShow(filmShow);
+    public Long addFilmShow(FilmShow filmShow) {
+        return filmShowDAO.addFilmShow(filmShow);
     }
 
     @Transactional

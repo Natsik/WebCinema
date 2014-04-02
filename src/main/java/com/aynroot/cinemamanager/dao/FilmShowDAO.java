@@ -16,13 +16,14 @@ public class FilmShowDAO {
     private EntityManager em;
 
     @SuppressWarnings("unchecked")
-    public void addFilmShow(FilmShow filmShow) {
+    public Long addFilmShow(FilmShow filmShow) {
         FilmShow mergedFilmShow = em.merge(filmShow);
 
         em.persist(mergedFilmShow);
         em.flush();
 
         filmShow.id = mergedFilmShow.id;
+        return filmShow.id;
     }
 
     public List<FilmShow> listFilmShows() {

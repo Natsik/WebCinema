@@ -69,6 +69,11 @@
                     });
                 </script>
 
+                <div class="form-group">
+                    <form:label path="price">Цена:</form:label>
+                    <form:input path="price" class="form-control" value=""/>
+                </div>
+
                 <button type="submit" class="btn btn-default">Добавить</button>
             </form:form>
         </div>

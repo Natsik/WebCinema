@@ -6,6 +6,7 @@ public class AddFilmShowForm {
     private String filmId;
     private String hallId;
     private String startTime;
+    private String price;
 
     public String getStartTime() {
         return startTime;
@@ -43,4 +44,11 @@ public class AddFilmShowForm {
         this.hallId = hallId;
     }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 }
