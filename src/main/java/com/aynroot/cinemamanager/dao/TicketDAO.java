@@ -25,14 +25,15 @@ public class TicketDAO {
 
     public void createTickets(Long showId, List<HallRow> rows, Float price) {
         for (HallRow row : rows) {
-            Ticket ticket = new Ticket();
-            ticket.setPrice(price);
-            ticket.setIsOrdered(false);
-            ticket.setRowId(row.id);
-            ticket.setShowId(showId);
-            for (Integer i = 1; i <= row.nSeats; i++)
+            for (Integer i = 1; i <= row.nSeats; i++) {
+                Ticket ticket = new Ticket();
+                ticket.setPrice(price);
+                ticket.setIsOrdered(false);
+                ticket.setRowId(row.id);
+                ticket.setShowId(showId);
                 ticket.setSeat(i);
                 em.persist(ticket);
+            }
         }
         em.flush();
     }
