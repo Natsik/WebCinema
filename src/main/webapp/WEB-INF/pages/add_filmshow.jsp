@@ -59,7 +59,7 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                     </div>
-                    <form:input path="startTime" class="form-control" value="" type="hidden"/><br/>
+                    <form:input path="startTime" class="form-control" value="" type="hidden"/>
                 </div>
 
                 <script type="text/javascript">

@@ -29,10 +29,10 @@ public class TicketDAO {
             ticket.setPrice(price);
             ticket.setIsOrdered(false);
             ticket.setRowId(row.id);
+            ticket.setShowId(showId);
             for (Integer i = 1; i <= row.nSeats; i++)
                 ticket.setSeat(i);
-            ticket.setShowId(showId);
-            em.persist(ticket);
+                em.persist(ticket);
         }
         em.flush();
     }
