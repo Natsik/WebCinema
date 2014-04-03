@@ -21,6 +21,9 @@
 <body>
 
 <div class="container">
+    <p>Фильм: ${requestedFilm.name}</p>
+    <p>Время: ${requestedFilmShow.startTime}</p>
+    <p>Зал: ${hall.name}</p>
     <p>Цена: ${price}</p>
     <c:forEach items="${tickets}" var="ticket">
         <p>${ticket.rowId}, ${ticket.seat}, ${ticket.isOrdered}</p>

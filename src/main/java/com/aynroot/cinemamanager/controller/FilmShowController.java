@@ -2,10 +2,7 @@ package com.aynroot.cinemamanager.controller;
 
 import com.aynroot.cinemamanager.domain.*;
 import com.aynroot.cinemamanager.forms.AddFilmShowForm;
-import com.aynroot.cinemamanager.service.FilmService;
-import com.aynroot.cinemamanager.service.FilmShowService;
-import com.aynroot.cinemamanager.service.HallService;
-import com.aynroot.cinemamanager.service.TicketService;
+import com.aynroot.cinemamanager.service.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +27,8 @@ public class FilmShowController {
     private HallService hallService;
     @Autowired
     private TicketService ticketService;
+    @Autowired
+    private HallRowService hallRowService;
 
     public static final Logger logger= Logger.getLogger(FilmShowService.class);
 
@@ -99,14 +98,13 @@ public class FilmShowController {
 
         FilmShow requestedFilmShow = filmShowService.getFilmShow(id);
         List<Ticket> tickets = ticketService.listShowTickets(id);
-//        Row tickets.get(0).rowId;
-//        row.hallId
+        HallRow row = hallRowService.getHallRow(tickets.get(0).rowId);
 
         model.addAttribute("requestedFilmShow", requestedFilmShow);
         model.addAttribute("requestedFilm", filmService.getFilm(requestedFilmShow.filmId));
         model.addAttribute("tickets", tickets);
         model.addAttribute("price", tickets.get(0).price);
-//        model.addAttribute("hall", hallService.getHall(tickets.get(0).rowId))
+        model.addAttribute("hall", hallService.getHall(row.hallId));
         return "filmshow";
     }
 }
