@@ -37,4 +37,9 @@ public class TicketDAO {
         }
         em.flush();
     }
+
+    public void order(Long id) {
+        Ticket ticket = em.find(Ticket.class, id);
+        ticket.setIsOrdered(true);
+    }
 }

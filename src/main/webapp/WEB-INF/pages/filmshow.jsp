@@ -22,6 +22,12 @@
     </style>
     <script src="<c:url value="/resources/js/jquery-2.0.1.js" />"></script>
     <script src="<c:url value="/resources/js/utils.js" />"></script>
+
+    <script>
+        function submit(id) {
+            document.getElementById('buy_ticket_' + id.toString()).submit()
+        }
+    </script>
 </head>
 
 <body>
@@ -42,7 +48,10 @@
 
         <c:choose>
             <c:when test="${!ticket.isOrdered}">
-                <a href="/buy_ticket/${ticket.id}" class="btn btn-default btn-sm" role="button">${ticket.seat}</a>
+                <form name="buy_ticket_${ticket.id}" id="buy_ticket_${ticket.id}" method="POST" action="/buy_ticket" style="display: inline;">
+                    <input type="hidden" name="id" value="${ticket.id}">
+                    <a href="javascript:submit(${ticket.id})" class="btn btn-default btn-sm" role="button">${ticket.seat}</a>
+                </form>
             </c:when>
             <c:otherwise>
                 <a href="#" class="btn btn-danger btn-sm" role="button">${ticket.seat}</a>

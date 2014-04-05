@@ -24,4 +24,9 @@ public class TicketService {
     public void createTickets(Long showId, List<HallRow> rows, Float price) {
         ticketDAO.createTickets(showId, rows, price);
     }
+
+    @Transactional
+    public void order(Long id) {
+        ticketDAO.order(id);
+    }
 }
