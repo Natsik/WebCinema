@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -25,8 +26,27 @@
     <p>Время: ${requestedFilmShow.startTime}</p>
     <p>Зал: ${hall.name}</p>
     <p>Цена: ${price}</p>
-    <c:forEach items="${tickets}" var="ticket">
-        <p>${ticket.rowId}, ${ticket.seat}, ${ticket.isOrdered}</p>
+
+    <c:forEach items="${tickets}" var="ticket" varStatus="status">
+        <c:if test="${status.count == 0}">
+            Ряд ${rows[0].number}:
+        </c:if>
+        <c:if test="${(status.count - 1) % rowLength == 0}">
+            Ряд ${rows[(status.count - 1) / rowLength].number}:
+        </c:if>
+
+        <c:choose>
+            <c:when test="${!ticket.isOrdered}">
+                <a href="#" class="btn btn-default btn-sm" role="button">${ticket.seat}</a>
+            </c:when>
+            <c:otherwise>
+                <a href="#" class="btn btn-danger btn-sm" role="button">${ticket.seat}</a>
+            </c:otherwise>
+        </c:choose>
+
+        <c:if test="${status.count % rowLength == 0}">
+            <br/>
+        </c:if>
     </c:forEach>
 </div>
 

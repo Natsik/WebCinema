@@ -98,13 +98,21 @@ public class FilmShowController {
 
         FilmShow requestedFilmShow = filmShowService.getFilmShow(id);
         List<Ticket> tickets = ticketService.listShowTickets(id);
-        HallRow row = hallRowService.getHallRow(tickets.get(0).rowId);
+        List<HallRow> rows = new ArrayList<HallRow>();
+        Long prevId = 0L;
+        for (Ticket ticket : tickets) {
+            if (!prevId.equals(hallRowService.getHallRow(ticket.rowId).id))
+                rows.add(hallRowService.getHallRow(ticket.rowId));
+            prevId = ticket.rowId;
+        }
 
         model.addAttribute("requestedFilmShow", requestedFilmShow);
         model.addAttribute("requestedFilm", filmService.getFilm(requestedFilmShow.filmId));
         model.addAttribute("tickets", tickets);
         model.addAttribute("price", tickets.get(0).price);
-        model.addAttribute("hall", hallService.getHall(row.hallId));
+        model.addAttribute("hall", hallService.getHall(rows.get(0).hallId));
+        model.addAttribute("rows", rows);
+        model.addAttribute("rowLength", rows.get(0).getnSeats());
         return "filmshow";
     }
 }

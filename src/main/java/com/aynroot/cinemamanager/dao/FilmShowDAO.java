@@ -44,7 +44,7 @@ public class FilmShowDAO {
 
     @SuppressWarnings("unchecked")
     public List<Object[]> listFilmShowsByFilmId(Long filmId) {
-        Query q = em.createQuery("SELECT filmShow.startTime, hall.name FROM FilmShow filmShow, Hall hall " +
+        Query q = em.createQuery("SELECT filmShow.id, filmShow.startTime, hall.name FROM FilmShow filmShow, Hall hall " +
                 "WHERE filmShow.filmId = :filmId AND filmShow.hallId = hall.id " +
                 "AND filmShow.startTime > current_timestamp() ORDER BY filmShow.startTime ASC");
         q.setParameter("filmId", filmId);

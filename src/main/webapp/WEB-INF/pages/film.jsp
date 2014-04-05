@@ -29,11 +29,8 @@
             <p>Продолжительность: <span class="convertToHHMM">${requestedFilm.duration}</span></p>
 
             <c:forEach items="${shows}" var="show">
-                <p>${show[0]}, ${show[1]}</p>
+                <p><a href="/filmshow/${show[0]}">${show[1]}, ${show[2]}</a></p>
             </c:forEach>
-            <%-- разбивка по датам --%>
-            <%-- время в читаемом формате --%>
-            <%-- время - ссылка на сеанс (покупка) --%>
 
         </div>
     </div>
