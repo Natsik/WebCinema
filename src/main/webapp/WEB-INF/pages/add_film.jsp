@@ -18,6 +18,14 @@
     <script src="<c:url value="/resources/js/jquery-2.0.1.js" />"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="<c:url value="/resources/js/utils.js" />"></script>
+    <script src="<c:url value="/resources/js/nod.js" />"></script>
+
+    <script>
+        var metrics = [
+            [ '#name_input', 'presence', 'Cannot be empty' ]
+        ];
+        $("#film_form").nod(metrics);
+    </script>
 </head>
 
 <body>
@@ -37,21 +45,35 @@
                 </div>
             </c:if>
 
-            <form:form modelAttribute="film">
+            <form:form modelAttribute="film" id="film_form">
                 <div class="form-group">
                     <form:label path="name">Название:</form:label>
-                    <form:input path="name" class="form-control" value=""/>
+                    <form:input path="name" class="form-control" value="" id="name_input" type="text"/>
                 </div>
                 <div class="form-group">
                     <form:label path="description">Описание:</form:label>
-                    <form:textarea path="description" class="form-control" rows="12" value=""/>
+                    <form:textarea path="description" class="form-control" rows="12" value="" id="descr_input" type="text"/>
                 </div>
                 <div class="form-group">
                     <form:label path="duration">Продолжительность:</form:label>
-                    <form:input path="duration" class="form-control" placeholder="HH:MM" value=""/>
+                    <form:input path="duration" class="form-control" placeholder="HH:MM" value="" id="duration_input"/>
                 </div>
                 <button type="submit" class="btn btn-default">Добавить</button>
             </form:form>
+
+            <script>
+                var metrics = [
+                    ['#name_input', 'presence', 'Введите название фильма'],
+                    ['#descr_input', 'presence', 'Введите описание фильма'],
+                    ['#duration_input', /[0-1]?[0-9]:[0-5][0-9]/, 'Введите время в формате HH:MM']
+                ];
+                var options = {
+                    'groupSelector': '.form-group',
+                    'groupClass': 'has-error',
+                    'delay': 1500
+                };
+                $("#film_form").nod(metrics, options);
+            </script>
         </div>
     </div>
 </div>

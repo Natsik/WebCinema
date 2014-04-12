@@ -20,6 +20,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="<c:url value="/resources/js/bootstrap-datetimepicker.js" />"></script>
     <script src="<c:url value="/resources/js/bootstrap-datetimepicker.ru.js" />"></script>
+    <script src="<c:url value="/resources/js/nod.js" />"></script>
     <script src="<c:url value="/resources/js/utils.js" />"></script>
 </head>
 
@@ -39,16 +40,16 @@
                 </div>
             </c:if>
 
-            <form:form modelAttribute="filmShow">
+            <form:form modelAttribute="filmShow" id="filmshow_form">
                 <form:label path="filmId">Фильм:</form:label>
-                <form:select  class="form-control" path="filmId">
-                    <form:option value="NONE" label="--- Выберите фильм ---" />
+                <form:select  class="form-control" path="filmId" id="film_select">
+                    <form:option value="NONE" label="--- Выберите фильм ---"/>
                     <form:options items="${filmsList}" />
                 </form:select>
 
                 <form:label path="hallId">Зал:</form:label>
                 <form:select  class="form-control" path="hallId">
-                    <form:option value="NONE" label="--- Выберите зал ---" />
+                    <form:option value="NONE" label="--- Выберите зал ---" id="hall_select"/>
                     <form:options items="${hallsList}" />
                 </form:select>
 
@@ -59,7 +60,7 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                     </div>
-                    <form:input path="startTime" class="form-control" value="" type="hidden"/>
+                    <form:input path="startTime" class="form-control" value="" type="hidden" id="time_input"/>
                 </div>
 
                 <script type="text/javascript">
@@ -71,11 +72,27 @@
 
                 <div class="form-group">
                     <form:label path="price">Цена:</form:label>
-                    <form:input path="price" class="form-control" value=""/>
+                    <form:input path="price" class="form-control" value="" id="price_input"/>
                 </div>
 
                 <button type="submit" class="btn btn-default">Добавить</button>
             </form:form>
+
+            <script>
+                var metrics = [
+                    ['#film_select', 'not:NONE', 'Выберите фильм'],
+                    ['#hall_select', 'not:NONE', 'Выберите зал'],
+//                    ['#time_input', 'presence', 'Введите время начала сеанса'],
+                    ['#price_input', 'float', 'Укажите цену'],
+                    ['#price_input', 'presence', 'Укажите цену'],
+                ];
+                var options = {
+                    'groupSelector': '.form-group',
+                    'groupClass': 'has-error',
+                    'delay': 1500
+                };
+                $("#filmshow_form").nod(metrics, options);
+            </script>
         </div>
     </div>
 </div>
