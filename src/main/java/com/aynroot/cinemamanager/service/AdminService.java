@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,15 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-/**
- * A custom {@link UserDetailsService} where user information
- * is retrieved from a JPA repository
- */
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class AdminService implements UserDetailsService {
-    AdminDAO adminDAO;
+    @Autowired
+    private AdminDAO adminDAO;
 
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             Admin admin = adminDAO.findByUsername(username);
@@ -41,7 +40,7 @@ public class AdminService implements UserDetailsService {
                     accountNonExpired,
                     credentialsNonExpired,
                     accountNonLocked,
-                    getAuthorities(admin.getRole().getRole()));
+                    getAuthorities(1));
 
         } catch (Exception e) {
             throw new RuntimeException(e);

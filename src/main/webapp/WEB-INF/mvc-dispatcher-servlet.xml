@@ -1,6 +1,7 @@
 <beans  xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:security="http://www.springframework.org/schema/security"
         xmlns:p="http://www.springframework.org/schema/p"
         xmlns:tx="http://www.springframework.org/schema/tx"
         xmlns:context="http://www.springframework.org/schema/context"
@@ -12,7 +13,9 @@
             http://www.springframework.org/schema/tx
             http://www.springframework.org/schema/tx/spring-tx.xsd
             http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <context:component-scan base-package="com.aynroot.cinemamanager"/>
     <context:annotation-config/>
@@ -53,12 +56,37 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/cinema?useUnicode=yes&amp;characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="osb4jsvm"/>
+        <property name="password" value=""/>
     </bean>
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
           p:persistenceUnitName="cinemaPersistenceUnit"/>
+
+    <security:http pattern="/resources" security="none" />
+
+    <security:http auto-config="true"  use-expressions="true">
+        <security:intercept-url pattern="/login" access="permitAll"/>
+        <security:intercept-url pattern="/logout" access="permitAll"/>
+        <security:intercept-url pattern="/denied" access="permitAll"/>
+        <security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+
+        <security:form-login login-page="/login"
+                             authentication-failure-url="/login/failure"
+                             default-target-url="/"/>
+
+        <security:access-denied-handler error-page="/denied"/>
+
+        <security:logout invalidate-session="true"
+                         logout-success-url="/logout/success"
+                         logout-url="/logout"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="adminService">
+            <security:password-encoder hash="plaintext" />
+        </security:authentication-provider>
+    </security:authentication-manager>
 
 </beans>

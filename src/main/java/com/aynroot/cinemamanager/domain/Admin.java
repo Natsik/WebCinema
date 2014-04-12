@@ -14,17 +14,6 @@ public class Admin {
     private String username;
     private String password;
 
-    @OneToOne(mappedBy="admin", cascade={CascadeType.ALL})
-    private Role role;
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public String getName() {
 
         return name;

@@ -6,13 +6,17 @@
         <class>com.aynroot.cinemamanager.domain.Film</class>
         <class>com.aynroot.cinemamanager.domain.FilmShow</class>
         <class>com.aynroot.cinemamanager.domain.Hall</class>
+        <class>com.aynroot.cinemamanager.domain.Ticket</class>
+        <class>com.aynroot.cinemamanager.domain.HallRow</class>
+        <class>com.aynroot.cinemamanager.domain.Admin</class>
+
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/cinema?useUnicode=yes&amp;characterEncoding=UTF-8"/>
             <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="osb4jsvm" />
+            <property name="hibernate.connection.password" value="" />
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.hbm2ddl.auto" value="update" />
 
