@@ -74,7 +74,7 @@
 
         <security:form-login login-page="/login"
                              authentication-failure-url="/login/failure"
-                             default-target-url="/"/>
+                             default-target-url="/admin"/>
 
         <security:access-denied-handler error-page="/denied"/>
 
