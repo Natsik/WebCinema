@@ -48,29 +48,29 @@
             <form:form modelAttribute="film" id="film_form">
                 <div class="form-group">
                     <form:label path="name">Название:</form:label>
-                    <form:input path="name" class="form-control" value="" id="name_input" type="text"/>
+                    <form:input path="name" class="form-control" value="" id="name" type="text"/>
                 </div>
                 <div class="form-group">
                     <form:label path="description">Описание:</form:label>
-                    <form:textarea path="description" class="form-control" rows="12" value="" id="descr_input" type="text"/>
+                    <form:textarea path="description" class="form-control" rows="12" value="" id="description" type="text"/>
                 </div>
                 <div class="form-group">
                     <form:label path="duration">Продолжительность:</form:label>
-                    <form:input path="duration" class="form-control" placeholder="HH:MM" value="" id="duration_input"/>
+                    <form:input path="duration" class="form-control" placeholder="HH:MM" value="" id="duration"/>
                 </div>
                 <button type="submit" class="btn btn-default">Добавить</button>
             </form:form>
 
             <script>
                 var metrics = [
-                    ['#name_input', 'presence', 'Введите название фильма'],
-                    ['#descr_input', 'presence', 'Введите описание фильма'],
-                    ['#duration_input', /[0-1]?[0-9]:[0-5][0-9]/, 'Введите время в формате HH:MM']
+                    ['#name', 'presence', ''],
+                    ['#description', 'presence', ''],
+                    ['#duration', /[0-1]?[0-9]:[0-5][0-9]/, 'Введите время в формате HH:MM']
                 ];
                 var options = {
                     'groupSelector': '.form-group',
                     'groupClass': 'has-error',
-                    'delay': 1500
+                    'delay': 300
                 };
                 $("#film_form").nod(metrics, options);
             </script>

@@ -41,26 +41,30 @@
             </c:if>
 
             <form:form modelAttribute="filmShow" id="filmshow_form">
-                <form:label path="filmId">Фильм:</form:label>
-                <form:select  class="form-control" path="filmId" id="film_select">
-                    <form:option value="NONE" label="--- Выберите фильм ---"/>
-                    <form:options items="${filmsList}" />
-                </form:select>
-
-                <form:label path="hallId">Зал:</form:label>
-                <form:select  class="form-control" path="hallId">
-                    <form:option value="NONE" label="--- Выберите зал ---" id="hall_select"/>
-                    <form:options items="${hallsList}" />
-                </form:select>
+                <div class="form-group">
+                    <form:label path="filmId">Фильм:</form:label>
+                    <form:select  class="form-control" path="filmId" id="filmId">
+                        <form:option value="NONE" label="--- Выберите фильм ---"/>
+                        <form:options items="${filmsList}" />
+                    </form:select>
+                </div>
 
                 <div class="form-group">
-                    <form:label path="startTime" class="control-label" >Время сеанса:</form:label>
+                    <form:label path="hallId">Зал:</form:label>
+                    <form:select  class="form-control" path="hallId">
+                        <form:option value="NONE" label="--- Выберите зал ---" id="hallId"/>
+                        <form:options items="${hallsList}" />
+                    </form:select>
+                </div>
+
+                <div class="form-group">
+                    <form:label path="startTime">Время сеанса:</form:label>
                     <div class="input-group date form_datetime"  data-link-field="startTime">
-                        <input class="form-control" size="16" type="text" value="" readonly>
+                        <input class="form-control" size="16" type="text" value="" id="time_input1" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                     </div>
-                    <form:input path="startTime" class="form-control" value="" type="hidden" id="time_input"/>
+                    <form:input path="startTime" value="" type="hidden" id="time_input2"/>
                 </div>
 
                 <script type="text/javascript">
@@ -80,16 +84,16 @@
 
             <script>
                 var metrics = [
-                    ['#film_select', 'not:NONE', 'Выберите фильм'],
-                    ['#hall_select', 'not:NONE', 'Выберите зал'],
-//                    ['#time_input', 'presence', 'Введите время начала сеанса'],
-                    ['#price_input', 'float', 'Укажите цену'],
-                    ['#price_input', 'presence', 'Укажите цену'],
+                    ['#filmId', 'not:NONE', ''],
+                    ['#hallId', 'not:NONE', ''],
+                    ['#time_input1, #tim_input 2', 'presence', ''],
+                    ['#price_input', 'float', ''],
+                    ['#price_input', 'presence', ''],
                 ];
                 var options = {
                     'groupSelector': '.form-group',
                     'groupClass': 'has-error',
-                    'delay': 1500
+                    'delay': 300
                 };
                 $("#filmshow_form").nod(metrics, options);
             </script>
