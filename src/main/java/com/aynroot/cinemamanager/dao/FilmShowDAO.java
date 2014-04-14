@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +62,13 @@ public class FilmShowDAO {
     public void removeFilmShow(Long id) {
         FilmShow filmShow = this.getFilmShow(id);
         em.remove(em.merge(filmShow));
+    }
 
+    public Boolean checkTimeAvailability(Timestamp ts, Long hallId) {
+        Query q = em.createNativeQuery("SELECT fs.id FROM filmshow fs, film f WHERE fs.start_time <= :ts and " +
+                "f.id = fs.film_id and fs.start_time + INTERVAL f.duration SECOND >= :ts and fs.hall_id = :hallId");
+        q.setParameter("ts", ts);
+        q.setParameter("hallId", hallId);
+        return q.getResultList().isEmpty();
     }
 }

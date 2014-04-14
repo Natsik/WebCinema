@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sun.util.logging.resources.logging;
 
 import java.util.*;
 
@@ -71,24 +70,25 @@ public class FilmShowController {
 
     @RequestMapping(value = "/filmshows/add", method = RequestMethod.POST)
     public String addFilmShow(@ModelAttribute("filmShow") AddFilmShowForm form, Model model) {
+        if (!filmShowService.checkTimeAvaiability(form.getTimestampStartTime(), Long.parseLong(form.getHallId()))) {
+            model.addAttribute("error_message", "Это время недоступно, идет другой сеанс.");
+        } else {
+            FilmShow filmShow = new FilmShow();
 
-        FilmShow filmShow = new FilmShow();
+            filmShow.setFilmId(Long.parseLong(form.getFilmId()));
+            filmShow.setHallId(Long.parseLong(form.getHallId()));
+            logger.info(form.getStartTime());
+            filmShow.setStartTime(form.getTimestampStartTime());
 
-        filmShow.setFilmId(Long.parseLong(form.getFilmId()));
-        filmShow.setHallId(Long.parseLong(form.getHallId()));
-        logger.info(form.getStartTime());
-        filmShow.setStartTime(form.getTimestampStartTime());
+            Long filmShowId = filmShowService.addFilmShow(filmShow);
+            List<HallRow> rows = hallService.getRowsById(Long.parseLong(form.getHallId()));
+            ticketService.createTickets(filmShowId, rows, Float.parseFloat(form.getPrice()));
 
-        Long filmShowId = filmShowService.addFilmShow(filmShow);
-        List<HallRow> rows = hallService.getRowsById(Long.parseLong(form.getHallId()));
-        ticketService.createTickets(filmShowId, rows, Float.parseFloat(form.getPrice()));
-
-        model.addAttribute("message", "Добавлен сеанс " + form.getHRStartTime() +
-                " на фильм <a href='/films/" + filmShow.getFilmId().toString() + "'>" +
-                filmService.getFilm(filmShow.getFilmId()).getName() + "</a>");
-
+            model.addAttribute("message", "Добавлен сеанс " + form.getHRStartTime() +
+                    " на фильм <a href='/films/" + filmShow.getFilmId().toString() + "'>" +
+                    filmService.getFilm(filmShow.getFilmId()).getName() + "</a>");
+        }
         initModelAddFilmShow(model);
-
         return "add_filmshow";
     }
 

@@ -39,6 +39,12 @@
                         ${message}
                 </div>
             </c:if>
+            <c:if test="${not empty error_message}">
+                <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                        ${error_message}
+                </div>
+            </c:if>
 
             <form:form modelAttribute="filmShow" id="filmshow_form">
                 <div class="form-group">
@@ -60,17 +66,18 @@
                 <div class="form-group">
                     <form:label path="startTime">Время сеанса:</form:label>
                     <div class="input-group date form_datetime"  data-link-field="startTime">
-                        <input class="form-control" size="16" type="text" value="" id="time_input1" readonly>
+                        <input class="form-control" size="16" type="text" value="" id="time_input" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                     </div>
-                    <form:input path="startTime" value="" type="hidden" id="time_input2"/>
+                    <form:input path="startTime" value="" type="hidden"/>
                 </div>
 
                 <script type="text/javascript">
                     $(".form_datetime").datetimepicker({
                         language:  'ru',
-                        format: "dd MM yyyy - hh:ii"
+                        format: "dd MM yyyy - hh:ii",
+                        startDate: "+0d"
                     });
                 </script>
 
@@ -86,7 +93,7 @@
                 var metrics = [
                     ['#filmId', 'not:NONE', ''],
                     ['#hallId', 'not:NONE', ''],
-                    ['#time_input1, #tim_input 2', 'presence', ''],
+                    ['#time_input', 'presence', ''],
                     ['#price_input', 'float', ''],
                     ['#price_input', 'presence', ''],
                 ];

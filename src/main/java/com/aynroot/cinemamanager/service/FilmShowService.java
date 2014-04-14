@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -38,4 +39,7 @@ public class FilmShowService {
     public List<Object[]> listFilmShowsByFilmId(Long id) {
         return filmShowDAO.listFilmShowsByFilmId(id);
     }
+
+    @Transactional
+    public Boolean checkTimeAvaiability(Timestamp ts, Long hallId) { return filmShowDAO.checkTimeAvailability(ts, hallId); }
 }
