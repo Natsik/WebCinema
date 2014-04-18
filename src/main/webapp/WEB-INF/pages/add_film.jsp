@@ -25,6 +25,10 @@
             [ '#name_input', 'presence', 'Cannot be empty' ]
         ];
         $("#film_form").nod(metrics);
+
+        function deleteFilm() {
+            document.getElementById('deleteFilm').submit()
+        }
     </script>
 </head>
 
@@ -33,7 +37,7 @@
 <div class="container">
 
     <div class="page-header">
-        <h3>Добавить фильм</h3>
+        <h3>${title}</h3>
     </div>
 
     <div class="row">
@@ -59,6 +63,9 @@
                     <form:input path="duration" class="form-control" placeholder="HH:MM" value="" id="duration"/>
                 </div>
                 <button type="submit" class="btn btn-default">Добавить</button>
+                <c:if test="${canDelete}">
+                    <button type="button" class="btn btn-danger" onclick="deleteFilm();">Удалить</button>
+                </c:if>
             </form:form>
 
             <script>
@@ -74,6 +81,12 @@
                 };
                 $("#film_form").nod(metrics, options);
             </script>
+
+            <c:if test="${canDelete}">
+                <form:form id="deleteFilm" action="/films/delete" method="post" modelAttribute="idForm">
+                    <form:hidden path="id" />
+                </form:form>
+            </c:if>
         </div>
     </div>
 </div>

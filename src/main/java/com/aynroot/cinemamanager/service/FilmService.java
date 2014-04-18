@@ -33,4 +33,9 @@ public class FilmService {
     public Film getFilm(Long id) {
         return filmDAO.getFilm(id);
     }
+
+    @Transactional
+    public void modifyFilm(Film film, Long id) {
+        filmDAO.modifyFilm(film, id);
+    }
 }

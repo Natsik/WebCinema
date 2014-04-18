@@ -38,6 +38,12 @@ public class FilmDAO {
     public void removeFilm(Long id) {
         Film film = this.getFilm(id);
         em.remove(em.merge(film));
+    }
 
+    public void modifyFilm(Film film, Long id) {
+        Film filmToUpdate = em.find(Film.class, id);
+        filmToUpdate.setDescription(film.getDescription());
+        filmToUpdate.setDuration(film.getDuration());
+        filmToUpdate.setName(film.getName());
     }
 }

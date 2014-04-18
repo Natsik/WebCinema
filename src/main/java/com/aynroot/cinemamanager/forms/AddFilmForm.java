@@ -1,9 +1,23 @@
 package com.aynroot.cinemamanager.forms;
 
+import com.aynroot.cinemamanager.domain.Film;
+
 public class AddFilmForm {
     private String name;
     private String description;
     private String duration;
+
+    public AddFilmForm() {}
+
+    public AddFilmForm(Film film) {
+        this.name = film.getName();
+        this.description = film.getDescription();
+
+        Integer d = film.getDuration();
+        Integer hours = d / (60 * 60);
+        Integer minutes = (d - hours * 60 * 60) / 60;
+        this.duration = String.format("%02d", hours) + ':' + String.format("%02d", minutes);
+    }
 
     public String getName() {
         return name;
