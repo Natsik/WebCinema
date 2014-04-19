@@ -27,6 +27,14 @@ public class FilmShowDAO {
         return filmShow.id;
     }
 
+    @SuppressWarnings("unchecked")
+    public void modifyFilmShow(FilmShow show, Long id) {
+        FilmShow showToUpdate = em.find(FilmShow.class, id);
+        showToUpdate.setFilmId(show.getFilmId());
+        showToUpdate.setHallId(show.getHallId());
+        showToUpdate.setStartTime(show.getStartTime());
+    }
+
     public List<FilmShow> listFilmShows() {
         return em.createQuery("SELECT filmShow FROM FilmShow filmShow", FilmShow.class).getResultList();
     }

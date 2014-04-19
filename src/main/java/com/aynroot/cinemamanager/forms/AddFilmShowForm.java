@@ -1,5 +1,7 @@
 package com.aynroot.cinemamanager.forms;
 
+import com.aynroot.cinemamanager.domain.FilmShow;
+
 import java.sql.Timestamp;
 
 public class AddFilmShowForm {
@@ -7,6 +9,19 @@ public class AddFilmShowForm {
     private String hallId;
     private String startTime;
     private String price;
+
+    public AddFilmShowForm() {}
+
+    public AddFilmShowForm(FilmShow show, Float price) {
+        filmId = show.getId().toString();
+        hallId = show.getHallId().toString();
+        startTime = show.getStartTime().toString();
+        float p = price;
+        if (p == (int)p)
+            this.price = String.format("%d",(int)p);
+        else
+            this.price = String.format("%s", p);
+    }
 
     public String getStartTime() {
         return startTime;

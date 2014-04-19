@@ -1,9 +1,6 @@
 package com.aynroot.cinemamanager.dao;
 
-import com.aynroot.cinemamanager.domain.Film;
-import com.aynroot.cinemamanager.domain.Hall;
-import com.aynroot.cinemamanager.domain.HallRow;
-import com.aynroot.cinemamanager.domain.Ticket;
+import com.aynroot.cinemamanager.domain.*;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -38,8 +35,32 @@ public class TicketDAO {
         em.flush();
     }
 
+    private Boolean checkIfOrdered(Long showId) {
+        Query q = em.createQuery("SELECT ticket FROM Ticket ticket WHERE ticket.showId = :showId and ticket.isOrdered = TRUE", Ticket.class);
+        q.setParameter("showId", showId);
+        return q.getResultList().isEmpty();
+    }
+
+    public void modifyTickets(Long showId, List<HallRow> rows, Float price) {
+        Boolean isOrdered = checkIfOrdered(showId);
+        if (isOrdered) {
+            throw new IllegalStateException();
+        }
+        List<Ticket> tickets = this.listShowTickets(showId);
+        for (Ticket ticket: tickets) {
+            em.remove(em.merge(ticket));
+        }
+        createTickets(showId, rows, price);
+    }
+
     public void order(Long id) {
         Ticket ticket = em.find(Ticket.class, id);
         ticket.setIsOrdered(true);
+    }
+
+    public Float getPrice(Long showId) {
+        Query q = em.createQuery("SELECT ticket.price FROM Ticket ticket WHERE ticket.showId = :showId", Float.class);
+        q.setParameter("showId", showId);
+        return (Float)q.getResultList().get(0);
     }
 }

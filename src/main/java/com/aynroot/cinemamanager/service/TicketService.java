@@ -26,7 +26,17 @@ public class TicketService {
     }
 
     @Transactional
+    public void modifyTickets(Long showId, List<HallRow> rows, Float price) throws IllegalStateException {
+        ticketDAO.modifyTickets(showId, rows, price);
+    }
+
+    @Transactional
     public void order(Long id) {
         ticketDAO.order(id);
+    }
+
+    @Transactional
+    public Float getPrice(Long id) {
+        return ticketDAO.getPrice(id);
     }
 }

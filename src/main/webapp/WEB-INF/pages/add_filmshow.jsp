@@ -22,6 +22,12 @@
     <script src="<c:url value="/resources/js/bootstrap-datetimepicker.ru.js" />"></script>
     <script src="<c:url value="/resources/js/nod.js" />"></script>
     <script src="<c:url value="/resources/js/utils.js" />"></script>
+
+    <script>
+        function deleteFilm() {
+            document.getElementById('deleteShow').submit()
+        }
+    </script>
 </head>
 
 <body>
@@ -105,6 +111,11 @@
                 $("#filmshow_form").nod(metrics, options);
             </script>
         </div>
+        <c:if test="${canDelete}">
+            <form:form id="deleteShow" action="/filmshows/delete" method="post" modelAttribute="idForm">
+                <form:hidden path="id" />
+            </form:form>
+        </c:if>
     </div>
 </div>
 

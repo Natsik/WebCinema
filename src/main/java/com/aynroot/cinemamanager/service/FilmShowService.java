@@ -22,6 +22,11 @@ public class FilmShowService {
     }
 
     @Transactional
+    public void modifyFilmShow(FilmShow filmShow, Long id) {
+        filmShowDAO.modifyFilmShow(filmShow, id);
+    }
+
+    @Transactional
     public List<FilmShow> listFilmShows() {
         return filmShowDAO.listFilmShows();
     }
