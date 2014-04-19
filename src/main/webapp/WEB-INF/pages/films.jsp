@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -34,6 +35,9 @@
                         <th style="width:10em;">Название</th>
                         <th>Описание</th>
                         <th>Продолжительность</th>
+                        <security:authorize access="isAuthenticated()">
+                            <th>Изменить детали</th>
+                        </security:authorize>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,6 +46,9 @@
                             <td style="width:10em;"><a href="/films/${film.id}">${film.name}</a></td>
                             <td>${film.description}</td>
                             <td class="convertToHHMM">${film.duration}</td>
+                            <security:authorize access="isAuthenticated()">
+                                <td><a href="/films/modify/${film.id}" class="btn btn-default active" role="button">Изменить</a></td>
+                            </security:authorize>
                         </tr>
                     </c:forEach>
                     </tbody>

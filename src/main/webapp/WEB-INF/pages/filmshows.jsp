@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -44,6 +45,11 @@
             var a = document.getElementById("a_" + day_offset.toString());
             a.innerHTML = d.format("ddd, d MMM");
         }
+        function deleteShow(id) {
+            var id_input = document.getElementById('id');
+            id_input.value = id;
+            document.getElementById('deleteShow').submit();
+        }
     </script>
 </head>
 <body>
@@ -82,6 +88,9 @@
                             <th>Фильм</th>
                             <th>Зал</th>
                             <th>Продолжительность</th>
+                            <security:authorize access="isAuthenticated()">
+                                <th>Удалить</th>
+                            </security:authorize>
                         </tr>
                         </thead>
                         <tbody>
@@ -91,13 +100,21 @@
                                 <td><a href="/films/${showInfo.filmId}">${showInfo.filmName}</a></td>
                                 <td>${showInfo.hallName}</td>
                                 <td class="convertToHHMM">${showInfo.filmDuration}</td>
+                                <security:authorize access="isAuthenticated()">
+                                    <td><button type="button" class="btn btn-danger" onclick="deleteShow(${showInfo.showId});">Удалить</button></td>
+                                </security:authorize>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
+                    <security:authorize access="isAuthenticated()">
+                        <form:form id="deleteShow" action="/filmshows/delete" method="post" modelAttribute="idForm">
+                            <form:hidden path="id" />
+                        </form:form>
+                    </security:authorize>
                 </c:if>
             </div>
-        </div
+        </div>
     </div>
 </body>
 </html>

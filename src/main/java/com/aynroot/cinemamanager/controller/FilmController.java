@@ -25,9 +25,10 @@ public class FilmController {
     private FilmShowService filmShowService;
 
     @RequestMapping("/films")
-    public String listFilms(ModelMap model) {
-        model.put("film", new Film());
-        model.put("filmsList", filmService.listFilms());
+    public String listFilms(Model model, @ModelAttribute("idForm") IdForm idForm) {
+        model.addAttribute("film", new Film());
+        model.addAttribute("filmsList", filmService.listFilms());
+        model.addAttribute("idForm", new IdForm());
         return "films";
     }
 

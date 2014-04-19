@@ -30,12 +30,12 @@ public class FilmShowController {
     private HallRowService hallRowService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model) {
-        return listDayFilmShows(0, model);
+    public String index(Model model, @ModelAttribute("idForm") IdForm idForm) {
+        return listDayFilmShows(0, idForm, model);
     }
 
     @RequestMapping(value="/", method = RequestMethod.POST)
-    public String listDayFilmShows(@RequestParam("day") Integer dayOffset, Model model) {
+    public String listDayFilmShows(@RequestParam("day") Integer dayOffset, @ModelAttribute("idForm") IdForm idForm, Model model) {
         List<Object[]> info = filmShowService.listFilmShowsByDayOffest(dayOffset);
         List<FilmShowInfo> showsInfos = new LinkedList<FilmShowInfo>();
         for (Object[] obj : info) {
@@ -44,6 +44,7 @@ public class FilmShowController {
         model.addAttribute("showInfo", new FilmShowInfo());
         model.addAttribute("showsInfoList", showsInfos);
         model.addAttribute("curDayOffset", dayOffset);
+        model.addAttribute("idForm", new IdForm());
         return "filmshows";
     }
 
