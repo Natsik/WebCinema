@@ -22,6 +22,13 @@
 </head>
 
 <body>
+
+    <c:if test="${not empty message}">
+        <div class="alert alert-dismissable alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                ${message}
+        </div>
+    </c:if>
     <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -51,6 +58,5 @@
             </div>
         </div>
     </div>
-    <p class="message">${message}</p>
 </body>
 </html>

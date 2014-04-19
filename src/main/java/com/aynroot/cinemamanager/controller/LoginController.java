@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class HelloController {
+public class LoginController {
 
     @RequestMapping(value = "/admin**", method = RequestMethod.GET)
     public String adminPage(Model model) {
@@ -28,14 +28,13 @@ public class HelloController {
 
     @RequestMapping(value = "/login/failure")
     public String loginFailure() {
-        String message = "Login Failure!";
+        String message = "Не удалось войти";
         return "redirect:/login?message="+message;
     }
 
     @RequestMapping(value = "/logout/success")
     public String logoutSuccess() {
-        String message = "Logout Success!";
-        return "redirect:/login?message="+message;
+        return "redirect:/login";
     }
 
 }

@@ -29,23 +29,6 @@
     </bean>
 
     <mvc:resources mapping="/resources/**" location="resources/"/>
-
-    <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/login"/>-->
-            <!--<mvc:mapping path="/profile"/>-->
-            <!--<mvc:mapping path="/users"/>-->
-            <!--<mvc:mapping path="/add_user"/>-->
-            <!--<mvc:mapping path="/manage_tasks"/>-->
-            <!--<mvc:mapping path="/edit_project"/>-->
-            <!--<mvc:mapping path="/edit_task"/>-->
-
-            <!--<bean class="com.aynroot.cinemamanager.interceptors.AuthInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
-
-
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager"
@@ -70,11 +53,18 @@
         <security:intercept-url pattern="/login" access="permitAll"/>
         <security:intercept-url pattern="/logout" access="permitAll"/>
         <security:intercept-url pattern="/denied" access="permitAll"/>
-        <security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+
+        <security:intercept-url pattern="/films/add" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/films/modify/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/films/delete" access="hasRole('ROLE_ADMIN')"/>
+
+        <security:intercept-url pattern="/filmshows/add" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/filmshows/modify/*" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/filmshows/delete" access="hasRole('ROLE_ADMIN')"/>
 
         <security:form-login login-page="/login"
                              authentication-failure-url="/login/failure"
-                             default-target-url="/admin"/>
+                             default-target-url="/"/>
 
         <security:access-denied-handler error-page="/denied"/>
 
