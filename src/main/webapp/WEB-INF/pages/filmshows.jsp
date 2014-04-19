@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>Сеансы ${day_name}</title>
+    <title>Сеансы</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

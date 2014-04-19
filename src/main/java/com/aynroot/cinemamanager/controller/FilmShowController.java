@@ -36,16 +36,6 @@ public class FilmShowController {
 
     @RequestMapping(value="/", method = RequestMethod.POST)
     public String listDayFilmShows(@RequestParam("day") Integer dayOffset, Model model) {
-        switch (dayOffset) {
-            case 0:
-                model.addAttribute("day_name", "сегодня");
-                break;
-            case 1:
-                model.addAttribute("day_name", "завтра");
-                break;
-            default:
-                model.addAttribute("day_name", "blabla");
-        }
         List<Object[]> info = filmShowService.listFilmShowsByDayOffest(dayOffset);
         List<FilmShowInfo> showsInfos = new LinkedList<FilmShowInfo>();
         for (Object[] obj : info) {
