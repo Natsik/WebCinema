@@ -1,5 +1,6 @@
 package com.aynroot.cinemamanager.controller;
 
+import com.aynroot.cinemamanager.dao.FilmShowInfo;
 import com.aynroot.cinemamanager.domain.*;
 import com.aynroot.cinemamanager.forms.AddFilmShowForm;
 import com.aynroot.cinemamanager.service.*;
@@ -8,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -31,19 +29,33 @@ public class FilmShowController {
 
     public static final Logger logger= Logger.getLogger(FilmShowService.class);
 
-//    @RequestMapping("/filmshows")
-//    public String listFilmShows(ModelMap model) {
-//        model.put("filmShow", new FilmShow());
-//        model.put("filmShowsList", filmShowService.listFilmShows());
-//        return "filmShows";
-//    }
-//
-//    @RequestMapping(value="/filmshows", params = {"from", "till"}, method=RequestMethod.GET)
-//    public String listFilmShows(@RequestParam(value = "from") String fromDate,
-//                                @RequestParam(value = "till") String tillDate) {
-//
-//        return "filmShows";
-//    }
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Model model) {
+        return listDayFilmShows(0, model);
+    }
+
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public String listDayFilmShows(@RequestParam("day") Integer dayOffset, Model model) {
+        switch (dayOffset) {
+            case 0:
+                model.addAttribute("day_name", "сегодня");
+                break;
+            case 1:
+                model.addAttribute("day_name", "завтра");
+                break;
+            default:
+                model.addAttribute("day_name", "blabla");
+        }
+        List<Object[]> info = filmShowService.listFilmShowsByDayOffest(dayOffset);
+        List<FilmShowInfo> showsInfos = new LinkedList<FilmShowInfo>();
+        for (Object[] obj : info) {
+            showsInfos.add(new FilmShowInfo(obj));
+        }
+        model.addAttribute("showInfo", new FilmShowInfo());
+        model.addAttribute("showsInfoList", showsInfos);
+        model.addAttribute("curDayOffset", dayOffset);
+        return "filmshows";
+    }
 
     private void initModelAddFilmShow(Model model) {
         model.addAttribute("filmShow", new AddFilmShowForm());

@@ -1,6 +1,7 @@
 package com.aynroot.cinemamanager.service;
 
 import com.aynroot.cinemamanager.dao.FilmShowDAO;
+import com.aynroot.cinemamanager.dao.FilmShowInfo;
 import com.aynroot.cinemamanager.domain.FilmShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,7 @@ public class FilmShowService {
 
     @Transactional
     public Boolean checkTimeAvaiability(Timestamp ts, Long hallId) { return filmShowDAO.checkTimeAvailability(ts, hallId); }
+
+    @Transactional
+    public List<Object[]> listFilmShowsByDayOffest(Integer dayOffset) { return filmShowDAO.listFilmShowsByDayOffest(dayOffset); }
 }

@@ -30,11 +30,18 @@ public class FilmShowDAO {
     public List<FilmShow> listFilmShows() {
         return em.createQuery("SELECT filmShow FROM FilmShow filmShow", FilmShow.class).getResultList();
     }
-//
-//    public List<FilmShow> listFilmShows(Date date) {
-//        // TODO
-//        return null;
-//    }
+
+    @SuppressWarnings("unchecked")
+    public List<Object[]> listFilmShowsByDayOffest(Integer dayOffset) {
+        Query q = em.createNativeQuery("SELECT s.id as showId, s.start_time, h.name as hallName, f.id as filmId, f.name as filmName, f.duration " +
+                "FROM filmshow s, film f, cinemahall h " +
+                "WHERE s.start_time >= DATE_ADD(CURDATE(), INTERVAL :dayOffset DAY) and " +
+                "s.start_time <= DATE_ADD(CURDATE(), INTERVAL :dayOffset + 1 DAY) and " +
+                "f.id = s.film_id and h.id = s.hall_id " +
+                "ORDER BY s.start_time");
+        q.setParameter("dayOffset", dayOffset);
+        return q.getResultList();
+    }
 
     @SuppressWarnings("unchecked")
     public List<FilmShow> listFilmShowsByHallId(Long hallId) {
