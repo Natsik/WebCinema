@@ -33,6 +33,9 @@
     <div class="row">
         <div class="col-md-12">
             <h3>Фильмы</h3>
+            <security:authorize access="isAuthenticated()">
+                <td><a href="/films/add" class="btn btn-default" role="button">Добавить фильм</a></td>
+            </security:authorize>
             <br/>
             <c:if test="${!empty filmsList}">
                 <table class="table table-bordered table-striped">
@@ -53,7 +56,7 @@
                             <td>${film.description}</td>
                             <td class="convertToHHMM">${film.duration}</td>
                             <security:authorize access="isAuthenticated()">
-                                <td><a href="/films/modify/${film.id}" class="btn btn-default active" role="button">Изменить</a></td>
+                                <td><a href="/films/modify/${film.id}" class="btn btn-default" role="button">Изменить</a></td>
                             </security:authorize>
                         </tr>
                     </c:forEach>

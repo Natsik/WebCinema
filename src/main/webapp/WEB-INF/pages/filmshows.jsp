@@ -59,7 +59,10 @@
         <div class="row">
             <div class="col-md-12">
 
-                <h3>Сеансы ${day_name}</h3>
+                <h3>Сеансы</h3>
+                <security:authorize access="isAuthenticated()">
+                    <td><a href="/filmshows/add" class="btn btn-default" role="button">Добавить сеанс</a></td>
+                </security:authorize>
                 <br/>
                 <ul class="pagination">
                     <li <c:if test="${curDayOffset == 0}"> class="disabled" </c:if>><a href="#" onclick="javascript:previous();">&laquo;</a></li>
