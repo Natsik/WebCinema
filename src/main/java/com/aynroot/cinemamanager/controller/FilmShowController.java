@@ -2,11 +2,9 @@ package com.aynroot.cinemamanager.controller;
 
 import com.aynroot.cinemamanager.dao.FilmShowInfo;
 import com.aynroot.cinemamanager.domain.*;
-import com.aynroot.cinemamanager.forms.AddFilmForm;
 import com.aynroot.cinemamanager.forms.AddFilmShowForm;
 import com.aynroot.cinemamanager.forms.IdForm;
 import com.aynroot.cinemamanager.service.*;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

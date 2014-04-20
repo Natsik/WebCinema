@@ -1,7 +1,6 @@
 package com.aynroot.cinemamanager.dao;
 
 import com.aynroot.cinemamanager.domain.HallRow;
-import com.aynroot.cinemamanager.domain.Ticket;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

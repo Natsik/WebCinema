@@ -1,11 +1,12 @@
 package com.aynroot.cinemamanager.dao;
 
-import com.aynroot.cinemamanager.domain.*;
+import com.aynroot.cinemamanager.domain.HallRow;
+import com.aynroot.cinemamanager.domain.Ticket;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository

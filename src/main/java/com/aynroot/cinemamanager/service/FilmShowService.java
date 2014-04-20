@@ -1,7 +1,6 @@
 package com.aynroot.cinemamanager.service;
 
 import com.aynroot.cinemamanager.dao.FilmShowDAO;
-import com.aynroot.cinemamanager.dao.FilmShowInfo;
 import com.aynroot.cinemamanager.domain.FilmShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
