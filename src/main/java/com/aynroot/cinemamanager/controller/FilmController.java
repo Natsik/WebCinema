@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -84,11 +81,24 @@ public class FilmController {
         return "redirect:/films";
     }
 
-    @RequestMapping("/films/{id}")
-    public String showFilm(@PathVariable("id") Long id, ModelMap model) {
+    @RequestMapping(value = "/films/{id}", method = RequestMethod.GET)
+    public String showFilm(@PathVariable("id") Long id, @ModelAttribute("idForm") IdForm idForm, ModelMap model) {
         model.addAttribute("film", new Film());
         model.addAttribute("requestedFilm", filmService.getFilm(id));
-        model.addAttribute("shows", filmShowService.listFilmShowsByFilmId(id));
+        model.addAttribute("shows", filmShowService.listFilmShowsByFilmIdByDayOffest(id, 0));
+        model.addAttribute("curDayOffset", 0);
+        model.addAttribute("idForm", new IdForm(id));
+        return "film";
+    }
+
+    @RequestMapping(value = "/films/{id}", method = RequestMethod.POST)
+    public String showFilm(@PathVariable("id") Long id, @RequestParam("day") Integer dayOffset,
+                           @ModelAttribute("idForm") IdForm idForm, ModelMap model) {
+        model.addAttribute("film", new Film());
+        model.addAttribute("requestedFilm", filmService.getFilm(id));
+        model.addAttribute("shows", filmShowService.listFilmShowsByFilmIdByDayOffest(id, dayOffset));
+        model.addAttribute("curDayOffset", dayOffset);
+        model.addAttribute("idForm", new IdForm(id));
         return "film";
     }
 }

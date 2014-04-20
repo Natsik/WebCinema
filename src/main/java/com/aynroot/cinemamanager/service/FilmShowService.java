@@ -42,8 +42,8 @@ public class FilmShowService {
     }
 
     @Transactional
-    public List<Object[]> listFilmShowsByFilmId(Long id) {
-        return filmShowDAO.listFilmShowsByFilmId(id);
+    public List<Object[]> listFilmShowsByFilmIdByDayOffest(Long filmId, Integer dayOffset) {
+        return filmShowDAO.listFilmShowsByFilmIdByDayOffest(filmId, dayOffset);
     }
 
     @Transactional

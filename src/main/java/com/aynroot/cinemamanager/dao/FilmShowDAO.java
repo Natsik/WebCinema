@@ -45,8 +45,7 @@ public class FilmShowDAO {
                 "FROM filmshow s, film f, cinemahall h " +
                 "WHERE s.start_time >= DATE_ADD(CURDATE(), INTERVAL :dayOffset DAY) and " +
                 "s.start_time <= DATE_ADD(CURDATE(), INTERVAL :dayOffset + 1 DAY) and " +
-                "f.id = s.film_id and h.id = s.hall_id " +
-                "ORDER BY s.start_time");
+                "f.id = s.film_id and h.id = s.hall_id ORDER BY s.start_time");
         q.setParameter("dayOffset", dayOffset);
         return q.getResultList();
     }
@@ -59,10 +58,13 @@ public class FilmShowDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Object[]> listFilmShowsByFilmId(Long filmId) {
-        Query q = em.createQuery("SELECT filmShow.id, filmShow.startTime, hall.name FROM FilmShow filmShow, Hall hall " +
-                "WHERE filmShow.filmId = :filmId AND filmShow.hallId = hall.id " +
-                "AND filmShow.startTime > current_timestamp() ORDER BY filmShow.startTime ASC");
+    public List<Object[]> listFilmShowsByFilmIdByDayOffest(Long filmId, Integer dayOffset) {
+        Query q = em.createNativeQuery("SELECT s.id as showId, s.start_time, h.name as hallName " +
+                "FROM filmshow s, film f, cinemahall h " +
+                "WHERE s.start_time >= DATE_ADD(CURDATE(), INTERVAL :dayOffset DAY) and " +
+                "s.start_time <= DATE_ADD(CURDATE(), INTERVAL :dayOffset + 1 DAY) and " +
+                "f.id = s.film_id and h.id = s.hall_id and f.id = :filmId ORDER BY s.start_time");
+        q.setParameter("dayOffset", dayOffset);
         q.setParameter("filmId", filmId);
         return q.getResultList();
     }

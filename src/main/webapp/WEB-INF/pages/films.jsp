@@ -34,9 +34,9 @@
         <div class="col-md-12">
             <h3>Фильмы</h3>
             <security:authorize access="isAuthenticated()">
-                <td><a href="/films/add" class="btn btn-default" role="button">Добавить фильм</a></td>
+                <a href="/films/add" class="btn btn-default" role="button">Добавить фильм</a>
             </security:authorize>
-            <br/>
+            <br />
             <c:if test="${!empty filmsList}">
                 <table class="table table-bordered table-striped">
                     <thead>

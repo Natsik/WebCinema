@@ -61,7 +61,7 @@
 
                 <h3>Сеансы</h3>
                 <security:authorize access="isAuthenticated()">
-                    <td><a href="/filmshows/add" class="btn btn-default" role="button">Добавить сеанс</a></td>
+                    <a href="/filmshows/add" class="btn btn-default" role="button">Добавить сеанс</a>
                 </security:authorize>
                 <br/>
                 <ul class="pagination">
@@ -100,7 +100,7 @@
                         <tbody>
                         <c:forEach items="${showsInfoList}" var="showInfo">
                             <tr>
-                                <td>${showInfo.showStartTime}</td>
+                                <td><a href="/filmshows/${showInfo.showId}">${showInfo.showStartTime}</a></td>
                                 <td><a href="/films/${showInfo.filmId}">${showInfo.filmName}</a></td>
                                 <td>${showInfo.hallName}</td>
                                 <td class="convertToHHMM">${showInfo.filmDuration}</td>
