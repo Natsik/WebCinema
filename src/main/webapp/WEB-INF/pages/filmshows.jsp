@@ -12,11 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 50px;
-        }
-    </style>
+    <link href="<c:url value="/resources/css/common.css" />" rel="stylesheet">
+
     <script src="<c:url value="/resources/js/jquery-2.0.1.js" />"></script>
     <script src="<c:url value="/resources/js/utils.js" />"></script>
     <script src="<c:url value="/resources/js/date_formatter.js" />"></script>
@@ -53,8 +50,12 @@
     </script>
 </head>
 <body>
+    <% Integer activeTab = 0; %>
+    <jsp:include page="navbar_header.jsp">
+        <jsp:param name="activeTab" value="<%=activeTab%>"/>
+    </jsp:include>
 
-    <div class="container">
+    <div class="container" id="container">
         <div class="row">
             <div class="col-md-12">
 

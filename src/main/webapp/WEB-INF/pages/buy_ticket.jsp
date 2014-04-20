@@ -15,10 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/common.css" />" rel="stylesheet">
     <style>
-        body {
-            padding-top: 50px;
-        }
         .starter-template {
             padding: 40px 15px;
             text-align: center;
@@ -29,8 +27,11 @@
 </head>
 
 <body>
-
-<div class="container">
+<% Integer activeTab = 4; %>
+<jsp:include page="navbar_header.jsp">
+    <jsp:param name="activeTab" value="<%=activeTab%>"/>
+</jsp:include>
+<div class="container" id="container">
     <div class="starter-template">
         <h2>Вы успешно приобрели билет. Ура!</h2>
     </div>

@@ -15,6 +15,7 @@
 
     <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
     <link href="<c:url value="/resources/css/bootstrap-datetimepicker.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/common.css" />" rel="stylesheet">
 
     <script src="<c:url value="/resources/js/jquery-2.0.1.js" />"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -31,12 +32,14 @@
 </head>
 
 <body>
-
-<div class="container">
+<% Integer activeTab = 6; %>
+<jsp:include page="navbar_header.jsp">
+    <jsp:param name="activeTab" value="<%=activeTab%>"/>
+</jsp:include>
+<div class="container" id="container">
     <div class="page-header">
         <h3>Добавить сеанс</h3>
     </div>
-
     <div class="row">
         <div class="col-md-6">
             <c:if test="${not empty message}">

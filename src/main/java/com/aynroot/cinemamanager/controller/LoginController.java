@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
-    public String adminPage(Model model) {
-        return "admin";
-    }
-
     @RequestMapping("/login")
     public String login(Model model, @RequestParam(required=false) String message) {
         model.addAttribute("message", message);
