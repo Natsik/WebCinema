@@ -100,7 +100,7 @@
                     <tbody>
                         <c:forEach items="${shows}" var="show">
                             <tr>
-                                <td><a href="/filmshow/${show[1]}">${show[2]}</a></td>
+                                <td><a class="cutHHMM" href="/filmshow/${show[1]}">${show[2]}</a></td>
                                 <td>${show[3]}</td>
                                 <td>${show[0]}</td>
                                 <security:authorize access="isAuthenticated()">

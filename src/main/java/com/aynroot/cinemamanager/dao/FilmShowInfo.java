@@ -16,7 +16,12 @@ public class FilmShowInfo {
     public FilmShowInfo() {}
 
     public FilmShowInfo(Object[] showInfo) {
-        price = (Float)showInfo[0];
+        try {
+            price = (Float)showInfo[0];
+        } catch (ClassCastException e) {
+            price = Float.parseFloat(((Integer) showInfo[0]).toString());
+        }
+
         showId = (Integer)showInfo[1];
         showStartTime = (Timestamp)showInfo[2];
         hallName = (String)showInfo[3];
@@ -71,5 +76,13 @@ public class FilmShowInfo {
 
     public void setFilmDuration(Integer filmDuration) {
         this.filmDuration = filmDuration;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

@@ -12,8 +12,16 @@ String.prototype.toHHMM = function () {
     return sec_num.toHHMM()
 };
 
+String.prototype.cutHHMM = function () {
+    return this.slice(11, 16)
+};
+
 $(document).ready(function() {
     $(".convertToHHMM").each(function(){
         $(this).html(($(this).html()).toHHMM());
+    });
+
+    $(".cutHHMM").each(function(){
+        $(this).html(($(this).html()).cutHHMM());
     });
 });

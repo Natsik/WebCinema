@@ -101,11 +101,11 @@
                         <tbody>
                         <c:forEach items="${showsInfoList}" var="showInfo">
                             <tr>
-                                <td><a href="/filmshows/${showInfo.showId}">${showInfo.showStartTime}</a></td>
+                                <td><a class="cutHHMM" href="/filmshows/${showInfo.showId}">${showInfo.showStartTime}</a></td>
                                 <td><a href="/films/${showInfo.filmId}">${showInfo.filmName}</a></td>
                                 <td>${showInfo.hallName}</td>
                                 <td class="convertToHHMM">${showInfo.filmDuration}</td>
-                                <td class="convertToHHMM">${showInfo.price}</td>
+                                <td>${showInfo.price}</td>
                                 <security:authorize access="isAuthenticated()">
                                     <td><button type="button" class="btn btn-danger" onclick="deleteShow(${showInfo.showId});">Удалить</button></td>
                                 </security:authorize>
