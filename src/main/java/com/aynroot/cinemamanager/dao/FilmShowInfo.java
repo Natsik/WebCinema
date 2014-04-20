@@ -11,16 +11,18 @@ public class FilmShowInfo {
     Integer filmId;
     String filmName;
     Integer filmDuration;
+    Float price;
 
     public FilmShowInfo() {}
 
     public FilmShowInfo(Object[] showInfo) {
-        showId = (Integer)showInfo[0];
-        showStartTime = (Timestamp)showInfo[1];
-        hallName = (String)showInfo[2];
-        filmId = (Integer)showInfo[3];
-        filmName = (String)showInfo[4];
-        filmDuration = (Integer)showInfo[5];
+        price = (Float)showInfo[0];
+        showId = (Integer)showInfo[1];
+        showStartTime = (Timestamp)showInfo[2];
+        hallName = (String)showInfo[3];
+        filmId = (Integer)showInfo[4];
+        filmName = (String)showInfo[5];
+        filmDuration = (Integer)showInfo[6];
     }
 
     public String getFilmName() {

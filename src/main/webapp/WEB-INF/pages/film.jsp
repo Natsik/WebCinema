@@ -40,7 +40,6 @@
             form.submit();
         }
         function printDay(day_offset) {
-            alert(day_offset);
             var d = new Date(new Date().getTime() + day_offset * (24 * 60 * 60 * 1000));
             var a = document.getElementById("a_" + day_offset.toString());
             a.innerHTML = d.format("ddd, d MMM");
@@ -92,6 +91,7 @@
                     <tr>
                         <th>Время начала</th>
                         <th>Зал</th>
+                        <th>Стоимость</th>
                         <security:authorize access="isAuthenticated()">
                             <th>Удалить</th>
                         </security:authorize>
@@ -100,8 +100,9 @@
                     <tbody>
                         <c:forEach items="${shows}" var="show">
                             <tr>
-                                <td><a href="/filmshow/${show[0]}">${show[1]}</a></td>
-                                <td>${show[2]}</td>
+                                <td><a href="/filmshow/${show[1]}">${show[2]}</a></td>
+                                <td>${show[3]}</td>
+                                <td>${show[0]}</td>
                                 <security:authorize access="isAuthenticated()">
                                     <td><button type="button" class="btn btn-danger" onclick="deleteShow(${show[0]});">Удалить</button></td>
                                 </security:authorize>

@@ -40,11 +40,12 @@ public class FilmShowDAO {
 
     @SuppressWarnings("unchecked")
     public List<Object[]> listFilmShowsByDayOffest(Integer dayOffset) {
-        Query q = em.createNativeQuery("SELECT s.id as showId, s.start_time, h.name as hallName, f.id as filmId, f.name as filmName, f.duration " +
-                "FROM filmshow s, film f, cinemahall h " +
+        Query q = em.createNativeQuery("SELECT DISTINCT(t.price), s.id as showId, s.start_time, h.name as hallName, " +
+                "f.id as filmId, f.name as filmName, f.duration " +
+                "FROM filmshow s, film f, cinemahall h, ticket t " +
                 "WHERE s.start_time >= DATE_ADD(CURDATE(), INTERVAL :dayOffset DAY) and " +
                 "s.start_time <= DATE_ADD(CURDATE(), INTERVAL :dayOffset + 1 DAY) and " +
-                "f.id = s.film_id and h.id = s.hall_id ORDER BY s.start_time");
+                "f.id = s.film_id and h.id = s.hall_id and t.show_id = s.id ORDER BY s.start_time");
         q.setParameter("dayOffset", dayOffset);
         return q.getResultList();
     }
@@ -58,11 +59,11 @@ public class FilmShowDAO {
 
     @SuppressWarnings("unchecked")
     public List<Object[]> listFilmShowsByFilmIdByDayOffest(Long filmId, Integer dayOffset) {
-        Query q = em.createNativeQuery("SELECT s.id as showId, s.start_time, h.name as hallName " +
-                "FROM filmshow s, film f, cinemahall h " +
+        Query q = em.createNativeQuery("SELECT DISTINCT(t.price), s.id as showId, s.start_time, h.name as hallName " +
+                "FROM filmshow s, film f, cinemahall h, ticket t " +
                 "WHERE s.start_time >= DATE_ADD(CURDATE(), INTERVAL :dayOffset DAY) and " +
                 "s.start_time <= DATE_ADD(CURDATE(), INTERVAL :dayOffset + 1 DAY) and " +
-                "f.id = s.film_id and h.id = s.hall_id and f.id = :filmId ORDER BY s.start_time");
+                "f.id = s.film_id and h.id = s.hall_id and f.id = :filmId and t.show_id = s.id ORDER BY s.start_time");
         q.setParameter("dayOffset", dayOffset);
         q.setParameter("filmId", filmId);
         return q.getResultList();

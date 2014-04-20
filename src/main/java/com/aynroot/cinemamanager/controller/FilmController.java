@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class FilmController {
 
@@ -83,7 +85,8 @@ public class FilmController {
     public String showFilm(@PathVariable("id") Long id, @ModelAttribute("idForm") IdForm idForm, ModelMap model) {
         model.addAttribute("film", new Film());
         model.addAttribute("requestedFilm", filmService.getFilm(id));
-        model.addAttribute("shows", filmShowService.listFilmShowsByFilmIdByDayOffest(id, 0));
+        List<Object[]> shows = filmShowService.listFilmShowsByFilmIdByDayOffest(id, 0);
+        model.addAttribute("shows", shows);
         model.addAttribute("curDayOffset", 0);
         model.addAttribute("idForm", new IdForm(id));
         return "film";

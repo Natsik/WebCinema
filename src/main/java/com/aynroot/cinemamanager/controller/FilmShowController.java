@@ -37,6 +37,7 @@ public class FilmShowController {
         List<Object[]> info = filmShowService.listFilmShowsByDayOffest(dayOffset);
         List<FilmShowInfo> showsInfos = new LinkedList<FilmShowInfo>();
         for (Object[] obj : info) {
+//            Float price = ticketService.getPrice((Integer)obj[0]);
             showsInfos.add(new FilmShowInfo(obj));
         }
         model.addAttribute("showInfo", new FilmShowInfo());

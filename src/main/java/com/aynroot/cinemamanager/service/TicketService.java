@@ -39,4 +39,9 @@ public class TicketService {
     public Float getPrice(Long id) {
         return ticketDAO.getPrice(id);
     }
+
+    @Transactional
+    public Float getPrice(Integer id) {
+        return ticketDAO.getPrice((long)id);
+    }
 }
